@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <!-- Changed active link to Utama -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="home.html" class="active">Utama</a></li>
+        <li><a href="shop.html">Langganan</a></li>
+        <li><a href="index.html">Informasi</a></li>
+        <li><a href="kontak.html">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>
+  <title>Emilia AI - Bot WhatsApp Terbaik</title>
+  <style>
+    :root {
+      --primary-blue: #007bff;
+      --light-blue: #e0f2ff;
+      --dark-blue: #0a1a38;
+      --text-color: #333;
+      --light-text-color: #f0f0f0;
+      /* Changed card-bg to slightly visible */
+      --card-bg: rgba(255, 255, 255, 0.1); /* Make background slightly visible */
+      --card-border: rgba(0, 123, 255, 0.3);
+      --selected-card-border: var(--primary-blue);
+      --selected-card-bg: rgba(0, 123, 255, 0.1);
+      --error-color: #dc3545;
+      --success-color: #28a745;
+      --discount-color: #e0f2ff;
+      --button-gradient: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6; /* Increased line height for readability */
+      background: linear-gradient(to bottom right, var(--dark-blue), #1e90ff);
+      color: var(--text-color);
+      margin: 0;
+      padding-top: 80px; /* Ruang agar tidak tertutup header fixed */
+      padding-bottom: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 99vh;
+      box-sizing: border-box;
+      position: relative; /* Untuk menempatkan bubble background */
+      overflow-x: hidden; /* Hindari scrollbar horizontal dari bubble */
+      color: var(--light-text-color); /* Default text color for body */
+    }
+
+    /* Shared Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--light-blue);
+      padding: 10px;
+      text-align: center;
+      z-index: 999;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    header nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap; /* Agar responsif di layar kecil */
+    }
+
+    header nav ul li {
+      margin: 5px 10px;
+    }
+
+    header nav ul li a {
+      color: #000000; /* Hitam */
+      text-decoration: none;
+      transition: color 0.2s ease;
+      padding: 5px 0;
+    }
+
+    header nav ul li a:hover {
+      color: #555555; /* Abu-abu gelap saat hover */
+    }
+
+    header nav ul li a.active {
+      font-weight: bold;
+      border-bottom: 2px solid var(--primary-blue);
+    }
+
+    /* Background Bubbles */
+    .background-bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1; /* Pastikan di belakang konten */
+      pointer-events: none; /* Agar tidak menghalangi interaksi */
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px; /* Mulai dari bawah */
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, rgba(135,206,235,0.7) 0%, rgba(0,191,255,0.5) 100%);
+      border-radius: 50%;
+      opacity: 0.5;
+      /* Adjusted animation duration */
+      animation: moveBubbles 8s linear infinite;
+    }
+
+    .bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-duration: 9s; }
+    .bubble:nth-child(2) { width: 100px; height: 100px; left: 20%; animation-duration: 10s; animation-delay: 1s;}
+    .bubble:nth-child(3) { width: 70px; height: 70px; left: 30%; animation-duration: 8s; animation-delay: 0.5s;}
+    .bubble:nth-child(4) { width: 90px; height: 90px; left: 40%; animation-duration: 9.5s; animation-delay: 1.5s;}
+    .bubble:nth-child(5) { width: 110px; height: 110px; left: 50%; animation-duration: 11s; animation-delay: 2s;}
+    .bubble:nth-child(6) { width: 85px; height: 85px; left: 60%; animation-duration: 8.5s; }
+    .bubble:nth-child(7) { width: 95px; height: 95px; left: 70%; animation-duration: 10s; animation-delay: 1s;}
+    .bubble:nth-child(8) { width: 75px; height: 75px; left: 80%; animation-duration: 7s; animation-delay: 0.8s;}
+    .bubble:nth-child(9) { width: 105px; height: 105px; left: 90%; animation-duration: 12s; animation-delay: 2.5s;}
+    .bubble:nth-child(10) { width: 65px; height: 65px; left: 5%; animation-duration: 7.5s; animation-delay: 0.3s;}
+
+    /* Adjusted translateY in keyframes for faster movement */
+    @keyframes moveBubbles {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+      100% { transform: translateY(-2000px) rotate(360deg); opacity: 0; } /* Increased translateY */
+    }
+
+
+    /* Main Content Container */
+    .container {
+      /* Adjusted padding */
+      padding: 30px;
+      margin-top: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Reduced shadow for lighter feel */
+      width: 100%;
+      max-width: 800px;
+      box-sizing: border-box;
+      position: relative;
+      color: var(--text-color); /* Card specific text color */
+      z-index: 1; /* Pastikan di atas bubble */
+      background-color: rgba(255, 255, 255, 0.95); /* Solid background for content area */
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--dark-blue);
+      margin-bottom: 30px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2, h3 {
+      color: var(--dark-blue);
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      color: var(--text-color); /* Default paragraph color */
+    }
+
+    /* Accordion Styles */
+    .accordion-container {
+        margin-top: 30px; /* Add space above accordion */
+    }
+
+    .accordion-item {
+        margin-bottom: 15px;
+        border: 1px solid var(--card-border);
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.7);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+        box-shadow: 0 3px 8px rgba(0,0,0,0.08); /* Initial subtle shadow */
+    }
+
+    .accordion-item:hover {
+        background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque on hover */
+         box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Enhanced shadow on hover */
+    }
+
+    .accordion-header {
+        background-color: var(--light-blue);
+        color: var(--dark-blue);
+        padding: 15px 20px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+     .accordion-header:hover {
+         background-color: rgba(135,206,235, 0.5);
+     }
+
+     .accordion-header .arrow {
+         font-size: 1.2em;
+         transition: transform 0.3s ease;
+     }
+
+     .accordion-header.active .arrow {
+         transform: rotate(180deg);
+     }
+
+
+    .accordion-content {
+        padding: 0 20px;
+        background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background for content */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        color: var(--text-color);
+    }
+
+    .accordion-content p,
+    .accordion-content ul {
+        /* Removed padding-top from these elements */
+        margin-bottom: 15px;
+    }
+
+     .accordion-content p:first-child {
+         margin-top: 0;
+     }
+
+     .accordion-content p:last-child,
+     .accordion-content ul:last-child {
+         margin-bottom: 0; /* Remove bottom margin for last elements */
+     }
+
+
+    .key-features {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px; /* Adjusted margin */
+    }
+
+    .key-features li {
+        margin-bottom: 8px;
+        padding-left: 20px;
+        position: relative;
+        color: var(--text-color);
+    }
+
+    .key-features li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: var(--success-color);
+        font-weight: bold;
+    }
+
+     /* Style for crossed-out features */
+     .key-features li.crossed-out-feature {
+         text-decoration: line-through;
+         color: rgba(51, 51, 51, 0.6); /* Dim the text */
+     }
+     .key-features li.crossed-out-feature::before {
+          content: '✗'; /* Change marker */
+          color: var(--error-color); /* Change color to error */
+     }
+
+
+    .feature-explanation {
+         font-size: 0.95em;
+         color: rgba(51, 51, 51, 0.8); /* Slightly lighter text */
+         margin-top: 5px;
+         margin-bottom: 10px;
+         padding-left: 20px; /* Indent slightly */
+         border-left: 2px solid rgba(0, 123, 255, 0.2); /* Subtle left border */
+    }
+
+
+    /* Thumbnail Section (Matching index.html) */
+    .thumbnail-container {
+        position: relative;
+        max-width: 800px;
+        margin: 40px auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+         border: 1px solid var(--card-border); /* Added border */
+    }
+
+    .thumbnail-container img {
+        display: block; /* Remove extra space below image */
+        width: 100%; /* Ensure image fills container */
+        height: auto;
+    }
+
+    .thumbnail-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5); /* Slightly darker overlay */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        gap: 20px; /* Space between buttons */
+    }
+
+    /* Button Styles (Matching index.html) */
+    .modern-btn {
+        display: inline-block; /* Ensure padding/margin works */
+        padding: 15px 40px;
+        border: none;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #7ec8e3 0%, #007bff 100%);
+        color: white;
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer;
+        box-shadow: 0 8px 15px rgba(0,123,255,0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none; /* Ensure links look like buttons */
+        text-align: center; /* Center text in button */
+    }
+
+    .modern-btn::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: rgba(255,255,255,0.1);
+        transform: rotate(45deg);
+        transition: all 0.5s ease;
+    }
+
+    .modern-btn:hover {
+        box-shadow: 0 12px 20px rgba(0,123,255,0.5);
+        transform: translateY(-3px);
+    }
+
+    .modern-btn:hover::after {
+        left: 120%;
+    }
+
+     .modern-btn:active {
+         transform: translateY(0);
+         box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
+     }
+
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+         header nav ul {
+             flex-direction: column;
+             align-items: center;
+         }
+         header nav ul li {
+             margin: 5px 0;
+         }
+         .container {
+             padding: 20px;
+         }
+         .accordion-header {
+             font-size: 1em;
+             padding: 12px 15px;
+         }
+         .accordion-content {
+             padding: 0 15px;
+         }
+         .cta-button {
+             padding: 12px 25px;
+             font-size: 1em;
+         }
+          .cta-buttons {
+             gap: 10px;
+         }
+         .thumbnail-overlay {
+             gap: 10px; /* Smaller gap on small screens */
+         }
+         .modern-btn {
+             padding: 12px 30px; /* Smaller padding */
+             font-size: 1em; /* Smaller font size */
+         }
+         .feature-explanation {
+              padding-left: 10px; /* Less indent */
+         }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="background-bubbles">
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+  </div>
+  <div class="container">
+    <h1>Selamat Datang di Dunia Emilia AI!</h1>
+    <p style="text-align: center; margin-bottom: 30px;">Asisten digital cerdas yang terintegrasi penuh dengan WhatsApp.</p> <!-- Added tagline -->
+
+    <!-- Thumbnail Section (Matching index.html) -->
+    <div class="thumbnail-container">
+        <img src="https://i.ibb.co.com/wZMLw9Rf/dewatermark.jpg" alt="Demo Bot">
+        <div class="thumbnail-overlay">
+            <button class="modern-btn" onclick="window.open('https://wa.me/6285134933006', '_blank')">Mulai Gratis Sekarang</button>
+            <button class="modern-btn" style="background:linear-gradient(135deg,#00b4d8,#0077b6)"
+                    onclick="location.href='shop.html'">
+                Lihat Pilihan Langganan
+            </button>
+        </div>
+    </div>
+
+
+    <div class="accordion-container">
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Apa Itu Bot WhatsApp Emilia AI? <span class="arrow">▼</span>
+            </button>
+            <div class="accordion-content">
+                <p>Emilia AI adalah sebuah program otomatis canggih yang dirancang khusus untuk beroperasi di dalam lingkungan aplikasi WhatsApp Anda. Berbeda dari bot biasa, Emilia AI menggabungkan kemampuan kecerdasan buatan (AI) dan beragam fitur utilitas yang powerful, memungkinkan Anda untuk melakukan berbagai hal, mulai dari mendapatkan informasi, hiburan, hingga menggunakan tools canggih, hanya dengan mengirim pesan teks atau perintah di WhatsApp. Bot ini berjalan 24/7 dan siap melayani Anda kapan pun dibutuhkan.</p>
+            <p>Bayangkan memiliki tool yang bisa melakukan banyak hal hanya dengan mengirim pesan. Itulah yang kami tawarkan! Cukup tambahkan nomor bot kami ke kontak Anda, dan rasakan kemudahannya.</p>
+                <p>Namun, bagi Anda yang membutuhkan performa lebih tinggi, akses penuh ke seluruh fitur premium yang eksklusif, prioritas dalam mendapatkan dukungan teknis, atau sekadar ingin menikmati pengalaman tanpa batasan penggunaan, kami menyediakan opsi keanggotaan berbayar melalui <strong>Plan Lite</strong> dan <strong>Plan Pro</strong>. Upgrade keanggotaan akan secara signifikan meningkatkan kemampuan dan kenyamanan Anda dalam berinteraksi dengan Emilia AI.</p>
+          </div>
+        </div>
+
+         <div class="accordion-item">
+            <button class="accordion-header">
+                Keunggulan Menggunakan Bot WhatsApp Emilia AI <span class="arrow">▼</span>
+            </button>
+            <div class="accordion-content">
+                <p>Memilih Emilia AI sebagai asisten digital Anda di WhatsApp memberikan berbagai manfaat signifikan:</p>
+                <ul class="key-features">
+                    <li><strong>Kemudahan Akses:</strong> Anda tidak perlu mengunduh aplikasi tambahan yang memberatkan perangkat Anda. Cukup gunakan aplikasi WhatsApp yang sudah terpasang, dan Emilia AI siap membantu.</li>
+                    <li style="margin-bottom: 15px;"><span class="feature-explanation">Interaksi dilakukan sepenuhnya melalui chat, membuat penggunaan terasa alami dan familiar seperti berkomunikasi dengan teman.</span></li>
+
+                    <li><strong>Respon Cepat & Efisien:</strong> Emilia AI memproses permintaan Anda dalam hitungan detik. Dapatkan jawaban atas pertanyaan atau selesaikan tugas-tugas tertentu secara instan tanpa perlu menunggu balasan manual.</li>
+                     <li style="margin-bottom: 15px;"><span class="feature-explanation">Bot ini beroperasi tanpa henti (24/7), memastikan layanan selalu tersedia kapan pun Anda membutuhkannya, siang atau malam.</span></li>
+
+                    <li><strong>Multifungsi dalam Satu Genggaman:</strong> Emilia AI dirancang untuk menjadi asisten serba bisa. Mulai dari mengunduh konten dari berbagai platform, mengolah media (gambar, stiker, audio, video), hingga berinteraksi dengan AI generatif, semua bisa dilakukan di satu tempat.</li>
+                    <li style="margin-bottom: 15px;"><span class="feature-explanation">Koleksi fiturnya terus bertambah, menjadikannya tools yang semakin lengkap dari waktu ke waktu untuk berbagai keperluan digital Anda.</span></li>
+
+                    <li><strong>Hemat Waktu & Tenaga:</strong> Otomatisasi tugas-tugas repetitif seperti mengunduh konten, konversi format, atau mencari informasi tertentu secara signifikan mengurangi waktu dan tenaga yang harus Anda keluarkan.</li>
+                    <li style="margin-bottom: 15px;"><span class="feature-explanation">Anda bisa fokus pada hal lain yang lebih penting sementara Emilia AI menangani tugas-tugas teknis tersebut untuk Anda.</span></li>
+
+                     <li><strong>User-Friendly:</strong> Mengingat antarmuka dasarnya adalah chat WhatsApp yang sudah sangat populer, siapa pun dapat dengan mudah berinteraksi dengan Emilia AI tanpa perlu mempelajari aplikasi baru yang rumit.</li>
+                     <li style="margin-bottom: 15px;"><span class="feature-explanation">Perintah-perintah bot dibuat intuitif dan mudah diingat, memudahkan navigasi fitur.</span></li>
+
+                      <li><strong>Teknologi AI Terdepan:</strong> Emilia AI tidak hanya mengandalkan perintah sederhana, tetapi juga memanfaatkan model-model AI canggih untuk chat (memberikan percakapan yang lebih natural dan informatif) dan generasi gambar (menciptakan karya visual dari deskripsi teks).</li>
+                      <li><span class="feature-explanation">Ini membuka peluang baru untuk kreativitas dan interaksi yang lebih mendalam dengan teknologi.</span></li>
+                </ul>
+            </div>
+        </div>
+
+         <div class="accordion-item">
+            <button class="accordion-header">
+                Gratis vs Berbayar: Tingkatkan Pengalaman Anda <span class="arrow">▼</span>
+            </button>
+            <div class="accordion-content">
+            <p>Bot WhatsApp kami adalah asisten pintar berbasis kecerdasan buatan yang terintegrasi langsung di dalam aplikasi WhatsApp Anda. Ini bukan sekadar kontak biasa; ia adalah tool multifungsi yang siap membantu berbagai kebutuhan digital Anda, 24/7, langsung melalui chat.</p>
+        </div>
+        </div>
+
+        <!-- New Accordion Item: Plan Lite Benefits -->
+        <div class="accordion-item">
+             <button class="accordion-header">
+                 Keunggulan Plan Lite <span class="arrow">▼</span>
+             </button>
+             <div class="accordion-content">
+                 <p>Plan Lite dirancang untuk pengguna yang membutuhkan akses lebih dari versi gratis, dengan fokus pada fitur inti dan dukungan yang ditingkatkan:</p>
+                 <ul class="key-features">
+                      <li><strong>Chatbot Tanpa Batas</strong>
+                          <p class="feature-explanation">Anda bisa berinteraksi dengan model AI chat kami sebanyak yang Anda inginkan tanpa ada kuota harian.</p>
+                      </li>
+                      <li><strong>Memori AI Cukup Baik</strong>
+                          <p class="feature-explanation">AI dapat mengingat konteks percakapan Anda dalam sesi yang sama, memungkinkan interaksi yang lebih mengalir.</p>
+                      </li>
+                       <li><strong>Respon Cepat</strong>
+                           <p class="feature-explanation">Permintaan Anda diproses dengan cepat untuk pengalaman yang mulus.</p>
+                       </li>
+                       <li><strong>Akses Fitur Terkunci</strong>
+                           <p class="feature-explanation">Dapatkan akses ke beberapa fitur premium yang tidak tersedia untuk pengguna gratis.</p>
+                       </li>
+                        <li><strong>Konsultasi</strong>
+                            <p class="feature-explanation">Anda bisa bertanya atau berkonsultasi mengenai penggunaan bot atau fitur-fitur yang ada.</p>
+                        </li>
+                        <li><strong>Update Reguler</strong>
+                            <p class="feature-explanation">Anda akan mendapatkan manfaat dari pembaruan bot secara berkala, termasuk perbaikan dan peningkatan.</p>
+                        </li>
+                        <li><strong>Dukungan Prioritas (Jam Kerja)</strong>
+                            <p class="feature-explanation">Jika Anda memiliki masalah atau pertanyaan, Anda akan mendapatkan prioritas respon dari tim dukungan kami selama jam kerja.</p>
+                        </li>
+                        <li><strong>Akses ke Konten Premium</strong>
+                            <p class="feature-explanation">Nikmati akses ke konten atau informasi tambahan yang disediakan khusus untuk anggota berbayar.</p>
+                        </li>
+                        <li><strong>Notifikasi Update</strong>
+                            <p class="feature-explanation">Selalu tahu tentang fitur baru atau perubahan penting melalui notifikasi khusus.</p>
+                        </li>
+                         <li><strong>Fitur Dasar</strong>
+                             <p class="feature-explanation">Seluruh fungsi dasar bot tetap bisa diakses dan digunakan.</p>
+                         </li>
+                       <li class="crossed-out-feature"><strong>Auto Klaim Harian</strong>
+                           <p class="feature-explanation">Fitur klaim hadiah harian otomatis tidak tersedia di plan ini.</p>
+                       </li>
+                       <li class="crossed-out-feature"><strong>Integrasi dengan group lain</strong>
+                            <p class="feature-explanation">Fitur untuk mengintegrasikan atau menggunakan bot di grup WhatsApp lain tidak termasuk.</p>
+                       </li>
+                       <li class="crossed-out-feature"><strong>Sewa Bot</strong>
+                           <p class="feature-explanation">Opsi untuk menyewa instance bot khusus tidak tersedia di plan ini.</p>
+                       </li>
+                       <li class="crossed-out-feature"><strong>Prioritas Dukungan 24/7</strong>
+                            <p class="feature-explanation">Dukungan prioritas hanya tersedia selama jam kerja, bukan 24 jam penuh.</p>
+                       </li>
+                       <li class="crossed-out-feature"><strong>Konsultasi Pribadi</strong>
+                            <p class="feature-explanation">Sesi konsultasi yang lebih mendalam atau pribadi tidak termasuk.</p>
+                       </li>
+                       <li class="crossed-out-feature"><strong>Request Fitur</strong>
+                           <p class="feature-explanation">Anda tidak memiliki hak prioritas untuk mengajukan permintaan fitur baru.</p>
+                       </li>
+                       <li class="crossed-out-feature"><strong>Akses ke Event Eksklusif</strong>
+                            <p class="feature-explanation">Akses ke acara atau promosi khusus yang hanya untuk anggota tier lebih tinggi tidak termasuk.</p>
+                       </li>
+                 </ul>
+                  <p class="feature-explanation" style="font-weight: bold; color: var(--dark-blue); margin-top: 20px; margin-bottom: 5px; border-left: none;">Detail Event Plan Lite:</p>
+                  <ul class="key-features" style="margin-top: 0;">
+                      <li><strong>ENERGY HARIAN: 200</strong>
+                           <p class="feature-explanation">Anda mendapatkan 200 energy setiap hari untuk menggunakan fitur-fitur tertentu yang membutuhkan energy.</p>
+                      </li>
+                       <li><strong>MAX CHARGE: 1500</strong>
+                           <p class="feature-explanation">Batas maksimal energy yang bisa Anda miliki adalah 1500.</p>
+                       </li>
+                       <li><strong>CHARGE RATE: 0.5</strong>
+                            <p class="feature-explanation">Energy Anda akan terisi kembali dengan kecepatan 0.5 poin per periode waktu tertentu (misalnya per menit atau jam, tergantung implementasi bot).</p>
+                       </li>
+                  </ul>
+             </div>
+        </div>
+
+         <!-- New Accordion Item: Plan Pro Benefits -->
+        <div class="accordion-item">
+             <button class="accordion-header">
+                 Keunggulan Plan Pro <span class="arrow">▼</span>
+             </button>
+             <div class="accordion-content">
+                 <p>Plan Pro adalah paket terlengkap untuk pengalaman Emilia AI tanpa kompromi, mencakup semua fitur Lite ditambah akses eksklusif dan prioritas tertinggi:</p>
+                 <ul class="key-features">
+                      <li><strong>Chatbot Tanpa Batas</strong>
+                           <p class="feature-explanation">Nikmati interaksi AI chat tanpa batasan penggunaan kuota harian.</p>
+                      </li>
+                      <li><strong>Memori AI Lebih Baik</strong>
+                           <p class="feature-explanation">Model AI memiliki memori jangka panjang yang lebih baik, memungkinkan percakapan yang lebih kompleks dan berkelanjutan.</p>
+                      </li>
+                       <li><strong>Respon Cepat</strong>
+                           <p class="feature-explanation">Permintaan Anda diproses dengan sangat cepat untuk efisiensi maksimum.</p>
+                       </li>
+                       <li><strong>Akses Fitur Terkunci</strong>
+                           <p class="feature-explanation">Akses penuh ke semua fitur premium dan lanjutan yang disediakan bot.</p>
+                       </li>
+                        <li><strong>Konsultasi</strong>
+                            <p class="feature-explanation">Anda bisa bertanya atau berkonsultasi mengenai penggunaan bot atau fitur-fitur yang ada.</p>
+                        </li>
+                        <li><strong>Update Reguler</strong>
+                            <p class="feature-explanation">Anda akan mendapatkan manfaat dari pembaruan bot secara berkala, termasuk perbaikan dan fitur baru.</p>
+                        </li>
+                        <li><strong>Dukungan Prioritas 24/7</strong>
+                            <p class="feature-explanation">Dapatkan respon tercepat dari tim dukungan kapan pun, 24 jam sehari, 7 hari seminggu.</p>
+                        </li>
+                        <li><strong>Akses ke Konten Premium</strong>
+                            <p class="feature-explanation">Nikmati akses ke konten atau informasi tambahan yang disediakan khusus untuk anggota berbayar.</p>
+                        </li>
+                        <li><strong>Auto Klaim Harian</strong>
+                            <p class="feature-explanation">Hadiah atau bonus harian (jika ada) akan otomatis diklaim untuk akun Anda tanpa perlu intervensi manual.</p>
+                        </li>
+                        <li><strong>Notifikasi Update</strong>
+                            <p class="feature-explanation">Selalu tahu tentang fitur baru atau perubahan penting melalui notifikasi khusus.</p>
+                        </li>
+                         <li><strong>Fitur Lanjutan</strong>
+                             <p class="feature-explanation">Akses ke tools dan fungsi bot yang lebih canggih dan kompleks.</p>
+                         </li>
+                         <li><strong>Integrasi dengan group Lain</strong>
+                              <p class="feature-explanation">Fitur untuk mengintegrasikan bot ke beberapa grup WhatsApp Anda (tergantung syarat dan ketentuan).</p>
+                         </li>
+                         <li><strong>Sewa Bot</strong>
+                             <p class="feature-explanation">Opsi untuk menyewa instance bot khusus untuk kebutuhan spesifik Anda (tergantung ketersediaan dan syarat tambahan).</p>
+                         </li>
+                         <li><strong>Prioritas Dukungan</strong>
+                             <p class="feature-explanation">Anda mendapatkan prioritas utama dalam antrean dukungan teknis.</p>
+                         </li>
+                         <li><strong>Konsultasi Pribadi</strong>
+                              <p class="feature-explanation">Dapatkan sesi konsultasi yang lebih mendalam dan personal untuk kebutuhan Anda.</p>
+                         </li>
+                         <li><strong>Request Fitur</strong>
+                             <p class="feature-explanation">Sebagai anggota Pro, permintaan fitur baru dari Anda akan mendapatkan pertimbangan dan prioritas khusus dalam pengembangan.</p>
+                         </li>
+                         <li><strong>Akses ke Event Eksklusif</strong>
+                             <p class="feature-explanation">Anda diundang dan memiliki akses ke acara, promosi, atau beta test fitur baru yang hanya tersedia untuk anggota Pro.</p>
+                         </li>
+                          <li><strong>Akses ke Konten Eksklusif</strong>
+                             <p class="feature-explanation">Nikmati akses ke lebih banyak konten, materi, atau tools eksklusif dibandingkan plan Lite.</p>
+                         </li>
+                 </ul>
+                  <p class="feature-explanation" style="font-weight: bold; color: var(--dark-blue); margin-top: 20px; margin-bottom: 5px; border-left: none;">Detail Event Plan Pro:</p>
+                  <ul class="key-features" style="margin-top: 0;">
+                      <li><strong>SALDO BOT HARIAN: Rp. 100.000,00</strong>
+                           <p class="feature-explanation">Anda mendapatkan Rp. 100.000,00 setiap hari untuk menggunakan fitur-fitur tertentu yang membutuhkan energy, jumlah yang jauh lebih besar dari Plan Lite. (INI HANYA MATA UANG BOT, BUKAN ASLI)</p>
+                      </li>
+                        <li><strong>AKSES KE EVENT EKSLUSIF</strong>
+                           <p class="feature-explanation">Undangan dan akses khusus ke acara, promosi, atau kegiatan terbatas yang hanya diadakan untuk anggota Plan Pro.</p>
+                       </li>
+                  </ul>
+             </div>
+        </div>
+
+    </div> <!-- .accordion-container -->
+
+
+  </div> <!-- .container -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const arrow = this.querySelector('.arrow');
+
+                // Close all other accordions
+                accordionHeaders.forEach(otherHeader => {
+                    if (otherHeader !== this) {
+                        otherHeader.classList.remove('active');
+                        otherHeader.nextElementSibling.style.maxHeight = null;
+                        otherHeader.nextElementSibling.style.paddingTop = '0';
+                        otherHeader.nextElementSibling.style.paddingBottom = '0';
+                        otherHeader.querySelector('.arrow').style.transform = 'rotate(0deg)';
+                    }
+                });
+
+                // Toggle the clicked accordion
+                this.classList.toggle('active');
+                if (content.style.maxHeight) {
+                    // Close it
+                    content.style.maxHeight = null;
+                    content.style.paddingTop = '0';
+                    content.style.paddingBottom = '0';
+                    arrow.style.transform = 'rotate(0deg)';
+                } else {
+                    // Open it
+                    // Set maxHeight to scrollHeight + some buffer for padding
+                    // Adjusted buffer based on CSS padding (15px top + 15px bottom = 30px total)
+                    content.style.maxHeight = content.scrollHeight + 30 + 'px';
+                    content.style.paddingTop = '15px';
+                    content.style.paddingBottom = '15px';
+                    arrow.style.transform = 'rotate(180deg)';
+
+                     // Optional: Scroll to the opened section if it's off-screen
+                     setTimeout(() => { // Small delay to allow max-height calculation and transition
+                        const headerTop = this.getBoundingClientRect().top;
+                        const offset = 90; // Adjust for fixed header height + padding
+                        // Only scroll if the top of the header is above the calculated scroll position
+                        if (headerTop < offset) {
+                             window.scrollTo({
+                                 top: window.scrollY + headerTop - offset,
+                                 behavior: 'smooth'
+                             });
+                         }
+                         // Add check if bottom is off screen too if needed, but scrolling to top is usually sufficient
+                     }, 400); // Match transition duration (0.4s)
+                }
+            });
+        });
+
+        // Bubble animation - Simple creation script
+        function createBubbles() {
+            const container = document.querySelector('.background-bubbles'); // Correct container selector
+            // Clear existing bubbles if any (important if script runs multiple times)
+             container.innerHTML = '';
+            for(let i = 0; i < 10; i++) { // Keep 10 bubbles as per CSS nth-child
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                // Initial position below the screen
+                bubble.style.bottom = `${-100 - Math.random() * 200}px`; // Start even lower randomly
+                bubble.style.left = `${Math.random() * 100}%`;
+                 // Use CSS for size and animation-duration/delay via nth-child
+                container.appendChild(bubble);
+            }
+        }
+        createBubbles(); // Call the function to create bubbles
+
+
+        // Initial fade-in for the container on page load
+        const container = document.querySelector('.container');
+        container.style.opacity = 0;
+        setTimeout(() => {
+            container.style.transition = 'opacity 1s ease-in';
+            container.style.opacity = 1;
+        }, 200); // Small delay after DOM is ready
+    });
+  </script>
+
+</body>
+</html>
