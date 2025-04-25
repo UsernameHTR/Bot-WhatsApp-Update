@@ -2,7 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <header>
+  <nav>
+    <ul>
+      <li><a href="home.html">Utama</a></li>
+      <li><a href="shop.html" class="active">Langganan</a></li>
+      <li><a href="index.html">Informasi</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+  </nav>
+</header>
     <title>Hanif Store - Shop</title>
     <style>
         :root {
@@ -17,7 +26,7 @@
             --selected-card-bg: rgba(0, 123, 255, 0.1);
             --error-color: #dc3545;
             --success-color: #28a745;
-            --discount-color: #ffc107;
+            --discount-color: #e0f2ff;
         }
 
         body {
@@ -32,7 +41,41 @@
             min-height: 100vh;
             box-sizing: border-box;
         }
+        
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #e0f2ff;
+  padding: 10px;
+  text-align: center;
+  z-index: 999;
+}
 
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+header nav ul li a {
+  color: #000000; /* Putih */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+header nav ul li a:hover {
+  color: #DDDDDD; /* Abu-abu muda saat hover */
+}
+
+header nav ul li a.active {
+  font-weight: bold;
+  border-bottom: 2px solid #007bff; /* Garis putih di bawah teks aktif */
+  padding-bottom: 5px;
+}
         .container {
             background-color: rgba(255, 255, 255, 0.95);
             padding: 30px;
@@ -679,11 +722,11 @@
             <div class="options-grid">
                 <div class="option-card" data-plan="lite">
                     <h3>Plan Lite</h3>
-                    <p>Rp 5.000/bulan</p>
+                    <p>Tap untuk informasi</p>
                 </div>
                 <div class="option-card" data-plan="pro">
                     <h3>Plan Pro</h3>
-                     <p>Rp 20.000/bulan</p>
+                     <p>Tap untuk informasi</p>
                 </div>
             </div>
         </div>
@@ -847,18 +890,18 @@
             lite: {
                 weekly: 5000,
                 monthly: 15000,
-                yearly: 150000
+                yearly: 200000
             },
             pro: {
-                weekly: 10000,
-                monthly: 35000,
-                yearly: 349999
+                weekly: 15000,
+                monthly: 60000,
+                yearly: 450000
             }
         };
 
         const originalPrices = {
-             lite: { weekly: 5000, monthly: 20000, yearly: 240000 },
-             pro: { weekly: 10000, monthly: 40000, yearly: 420000 }
+             lite: { weekly: 10000, monthly: 40000, yearly: 480000 },
+             pro: { weekly: 20000, monthly: 80000, yearly: 960000 }
         };
 
         const discounts = {};

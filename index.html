@@ -2,8 +2,65 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <header>
+  <nav>
+    <ul>
+      <li><a href="home.html">Utama</a></li>
+      <li><a href="shop.html">Langganan</a></li>
+      <li><a href="index.html" class="active">Informasi</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+  </nav>
+</header>
   <title>Informasi Penting</title>
+  <script> 
+  document.addEventListener('DOMContentLoaded', function() {
+  const textElements = document.querySelectorAll('p, li');
+
+  textElements.forEach(element => {
+    const text = element.innerHTML;
+    const regex = /\*(.*?)\*/g;
+    const newText = text.replace(regex, '<strong>$1</strong>');
+    element.innerHTML = newText;
+  });
+});
+</script>
   <style>
+  
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #e0f2ff;
+  padding: 10px;
+  text-align: center;
+  z-index: 999;
+}
+
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+header nav ul li a {
+  color: #000000; /* Putih */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+header nav ul li a:hover {
+  color: #DDDDDD;
+}
+
+header nav ul li a.active {
+  font-weight: bold;
+  border-bottom: 2px solid #007bff; 
+  padding-bottom: 5px;
+}
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.7;
@@ -16,18 +73,19 @@
     }
     h2 {
       color: #34495e;
-      margin-top: 1.5em;
+      margin-top: 0.1em;
     }
     .highlight {
       background-color: #eaf4ff;
       padding: 10px;
       border-left: 5px solid #3498db;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+      font-size: 0.8em;
     }
     .spoiler {
       font-weight: bold;
-      font-size: 1.2em;
-      color: #8e44ad;
+      font-size: 1.0em;
+      color: #007bff;
     }
     table {
       border-collapse: collapse;
