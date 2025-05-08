@@ -59,6 +59,18 @@
             text-align: center;
         }
 
+        /* Tambahkan styling untuk teks di atas thumbnail */
+        .hero-text {
+            position: absolute;
+            top: 113px; /* Sesuaikan nilai ini berdasarkan tinggi header dan jarak yang diinginkan */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1; /* Pastikan teks berada di atas gambar */
+            color: white;
+            text-align: center;
+            width: 100%; /* Memastikan teks selebar container */
+        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -67,7 +79,7 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.0);
             padding: 25px;
             border-radius: 15px;
             backdrop-filter: blur(10px);
@@ -99,6 +111,9 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            /* Tambahkan transparansi */
+            background: rgba(126, 200, 227, 0.8); /* Warna + transparansi */
+            box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2); /* Sedikit kurangi intensitas shadow */
         }
 
         .modern-btn2::after {
@@ -123,8 +138,8 @@
         }
         /* Button Styles */
         .modern-btn {
-            margin-top: 300px;
-            padding: 15px 40px; 
+            margin-top: 0px;
+            padding: 15px 40px;
             border: none;
             border-radius: 14px;
             background: linear-gradient(135deg, #7ec8e3 0%, #007bff 100%);
@@ -136,6 +151,9 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            /* Tambahkan transparansi */
+            background: rgba(126, 200, 227, 0.8); /* Warna + transparansi */
+            box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2); /* Sedikit kurangi intensitas shadow */
         }
 
         .modern-btn::after {
@@ -173,8 +191,9 @@
         .bubble {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,9.0); /* Ubah warna bubble agar lebih terlihat */
             animation: float 15s infinite linear;
+            backdrop-filter: blur(5px); /* Efek Blur */
         }
 
         @keyframes float {
@@ -183,7 +202,7 @@
                 opacity: 0;
             }
             50% {
-                opacity: 0.3;
+                opacity: 0.5; /* Tingkatkan opacity agar bubble lebih terlihat */
             }
             100% {
                 transform: translateY(-100vh) scale(1.2);
@@ -195,16 +214,16 @@
         .thumbnail-container {
             position: relative;
             left: -40.5px;
-           /* max-width: 2300px;*/
+            /* max-width: 2300px;*/
             margin: 0px auto;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
             width: 109.5%; /* Ensure it takes full width of parent */
         }
-         .thumbnail-container img {
-             display: block; /* Prevent extra space below image */
-         }
+        .thumbnail-container img {
+            display: block; /* Prevent extra space below image */
+        }
 
         .thumbnail-overlay {
             position: absolute;
@@ -212,7 +231,7 @@
             left: 0;
             width: 100%;
             height: 140%;
-            background: rgba(0,0,0,0.1);
+            background: rgba(0,0,0,0.1,0.0);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -250,10 +269,10 @@
             font-size: 1.4em;
             margin: 0;
         }
-        
+
         .item-content p, .item-content ul, .item-title {
-  text-align: left;
-}
+            text-align: left;
+        }
 
         .item-content {
             max-height: 0;
@@ -275,13 +294,11 @@
         /* Scroll Effects */
         .scroll-reveal {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
+            transition: opacity 0.8s ease; /* Lebih sederhana, hanya opacity */
         }
 
         .scroll-reveal.active {
             opacity: 1;
-            transform: translateY(0);
         }
 
         /* Tools Grid */
@@ -293,7 +310,7 @@
         }
 
         .tool-card {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.1);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
@@ -301,25 +318,58 @@
 
         /* Membership Callout */
         .membership-callout {
-            background: linear-gradient(135deg, #007bff 0%, #00b4d8 100%);
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
             border-radius: 20px;
-            margin: 50px 0;
+            margin: 50px auto;
+            padding: 40px;
             text-align: center;
+            max-width: 800px;
+            backdrop-filter: blur(10px); /* Glassmorphism effect */
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-         /* Styling for the crossed-out list items */
+
+        .membership-callout h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .membership-callout p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .membership-callout ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .membership-callout li {
+            font-size: 1.2em;
+            margin: 10px 20px;
+            padding: 10px 20px;
+            background: rgba(0, 123, 255, 0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 123, 255, 0.2);
+        }
+
+        /* Styling for the crossed-out list items */
         .item-content ul li[style*="text-decoration: line-through;"] {
             color: rgba(255, 255, 255, 0.6); /* Dim the text */
         }
-         .item-content ul li[style*="text-decoration: line-through;"] p {
-             color: rgba(255, 255, 255, 0.4); /* Dim the explanation text further */
-         }
+        .item-content ul li[style*="text-decoration: line-through;"] p {
+            color: rgba(255, 255, 255, 0.4); /* Dim the explanation text further */
+        }
 
-         /* Remove border-left for specific elements within item-content */
-         .item-content p[style*="border-left: none;"] {
-             border-left: none;
-             padding-left: 0;
-         }
+        /* Remove border-left for specific elements within item-content */
+        .item-content p[style*="border-left: none;"] {
+            border-left: none;
+            padding-left: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -332,98 +382,102 @@
             </ul>
         </nav>
     </header>
+
+    <!--  Thumbnail Section (MOVED TO TOP) -->
+    <div class="hero-section">
+        <!-- Tambahkan teks di atas thumbnail -->
+        <div class="hero-text">
+            <p>Asisten digital cerdas yang terintegrasi penuh dengan WhatsApp</p>
+        </div>
+        <div class="thumbnail-container">
+            <img src="https://i.ibb.co/wZMLw9Rf/dewatermark.jpg" alt="Demo Bot" style="width:100%">
+            <div class="thumbnail-overlay">
+                <div style="display: flex; justify-content: space-between; width: 50%; align-items: center;">
+                    <button class="modern-btn" onclick="window.open('https://wa.me/6285134933006', '_blank')">Mulai Gratis</button>
+                    <button class="modern-btn" style="background:linear-gradient(135deg,#00b4d8,#0077b6)" onclick="location.href='shop.html'">Lihat Harga</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Thumbnail Section -->
+
     <div class="bubbles" id="bubbleContainer"></div>
 
     <div class="hero-section">
-        <h1>🤖 Emilia AI WhatsApp Bot</h1>
-        <p>Asisten digital cerdas yang terintegrasi penuh dengan WhatsApp</p>
-
-        <!-- Features Grid Removed -->
-
-        <div class="thumbnail-container">
-  <img src="https://i.ibb.co/wZMLw9Rf/dewatermark.jpg" alt="Demo Bot" style="width:100%">
-  <div class="thumbnail-overlay">
-    <div style="display: flex; justify-content: space-between; width: 50%; align-items: center;">
-      <button class="modern-btn" onclick="window.open('https://wa.me/6285134933006', '_blank')">Mulai Gratis</button>
-      <button class="modern-btn" style="background:linear-gradient(135deg,#00b4d8,#0077b6)" onclick="location.href='shop.html'">Lihat Harga</button>
-    </div>
-  </div>
-</div>
-
-    <!-- New Accordion Section -->
-    <div class="expandable-section scroll-reveal">
-        <div class="expandable-item">
-            <div class="item-header" onclick="toggleContent(this)">
-                <h2 class="item-title">Apa Itu Bot WhatsApp Emilia AI?</h2>
-                <span class="arrow">▼</span>
+        <!-- New Accordion Section -->
+        <div class="expandable-section scroll-reveal">
+            <div class="expandable-item">
+                <div class="item-header" onclick="toggleContent(this)">
+                    <h2 class="item-title">Apa Itu Bot WhatsApp Emilia AI?</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="item-content">
+                    <p>Emilia AI adalah sebuah program otomatis canggih yang dirancang khusus untuk beroperasi di dalam lingkungan aplikasi WhatsApp Anda. Berbeda dari bot biasa, Emilia AI menggabungkan kemampuan kecerdasan buatan (AI) dan beragam fitur utilitas yang powerful, memungkinkan Anda untuk melakukan berbagai hal, mulai dari mendapatkan informasi, hiburan, hingga menggunakan tools canggih, hanya dengan mengirim pesan teks atau perintah di WhatsApp. Bot ini berjalan 24/7 dan siap melayani Anda kapan pun dibutuhkan.</p>
+                    <p>Bayangkan memiliki tool yang bisa melakukan banyak hal hanya dengan mengirim pesan. Itulah yang kami tawarkan! Cukup tambahkan nomor bot kami ke kontak Anda, dan rasakan kemudahannya.</p>
+                    <p>Namun, bagi Anda yang membutuhkan performa lebih tinggi, akses penuh ke seluruh fitur premium yang eksklusif, prioritas dalam mendapatkan dukungan teknis, atau sekadar ingin menikmati pengalaman tanpa batasan penggunaan, kami menyediakan opsi keanggotaan berbayar melalui <strong>Plan Lite</strong> dan <strong>Plan Pro</strong>. Upgrade keanggotaan akan secara signifikan meningkatkan kemampuan dan kenyamanan Anda dalam berinteraksi dengan Emilia AI.</p>
+                </div>
             </div>
-            <div class="item-content">
-                <p>Emilia AI adalah sebuah program otomatis canggih yang dirancang khusus untuk beroperasi di dalam lingkungan aplikasi WhatsApp Anda. Berbeda dari bot biasa, Emilia AI menggabungkan kemampuan kecerdasan buatan (AI) dan beragam fitur utilitas yang powerful, memungkinkan Anda untuk melakukan berbagai hal, mulai dari mendapatkan informasi, hiburan, hingga menggunakan tools canggih, hanya dengan mengirim pesan teks atau perintah di WhatsApp. Bot ini berjalan 24/7 dan siap melayani Anda kapan pun dibutuhkan.</p>
-                <p>Bayangkan memiliki tool yang bisa melakukan banyak hal hanya dengan mengirim pesan. Itulah yang kami tawarkan! Cukup tambahkan nomor bot kami ke kontak Anda, dan rasakan kemudahannya.</p>
-                <p>Namun, bagi Anda yang membutuhkan performa lebih tinggi, akses penuh ke seluruh fitur premium yang eksklusif, prioritas dalam mendapatkan dukungan teknis, atau sekadar ingin menikmati pengalaman tanpa batasan penggunaan, kami menyediakan opsi keanggotaan berbayar melalui <strong>Plan Lite</strong> dan <strong>Plan Pro</strong>. Upgrade keanggotaan akan secara signifikan meningkatkan kemampuan dan kenyamanan Anda dalam berinteraksi dengan Emilia AI.</p>
+
+            <div class="expandable-item">
+                <div class="item-header" onclick="toggleContent(this)">
+                    <h2 class="item-title">Keunggulan Menggunakan Bot WhatsApp Emilia AI</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="item-content">
+                    <p>Memilih Emilia AI sebagai asisten digital Anda di WhatsApp memberikan berbagai manfaat signifikan:</p>
+                    <ul>
+                        <li><strong>Kemudahan Akses:</strong> Anda tidak perlu mengunduh aplikasi tambahan yang memberatkan perangkat Anda. Cukup gunakan aplikasi WhatsApp yang sudah terpasang, dan Emilia AI siap membantu.</li>
+                        <li style="margin-bottom: 15px;">Interaksi dilakukan sepenuhnya melalui chat, membuat penggunaan terasa alami dan familiar seperti berkomunikasi dengan teman.</li>
+
+                        <li><strong>Respon Cepat & Efisien:</strong> Emilia AI memproses permintaan Anda dalam hitungan detik. Dapatkan jawaban atas pertanyaan atau selesaikan tugas-tugassertentu secara instan tanpa perlu menunggu balasan manual.</li>
+                        <li style="margin-bottom: 15px;">Bot ini beroperasi tanpa henti (24/7), memastikan layanan selalu tersedia kapan pun Anda membutuhkannya, siang atau malam.</li>
+
+                        <li><strong>Multifungsi dalam Satu Genggaman:</strong> Emilia AI dirancang untuk menjadi asisten serba bisa. Mulai dari mengunduh konten dari berbagai platform, mengolah media (gambar, stiker, audio, video), hingga berinteraksi dengan AI generatif, semua bisa dilakukan di satu tempat.</li>
+                        <li style="margin-bottom: 15px;">Koleksi fiturnya terus bertambah, menjadikannya tools yang semakin lengkap dari waktu ke waktu untuk berbagai keperluan digital Anda.</li>
+
+                        <li><strong>Hemat Waktu & Tenaga:</strong> Otomatisasi tugas-tugas repetitif seperti mengunduh konten, konversi format, atau mencari informasi tertentu secara signifikan mengurangi waktu dan tenaga yang harus Anda keluarkan.</li>
+                        <li style="margin-bottom: 15px;">Anda bisa fokus pada hal lain yang lebih penting sementara Emilia AI menangani tugas-tugas teknis tersebut untuk Anda.</li>
+
+                        <li><strong>User-Friendly:</strong> Mengingat antarmuka dasarnya adalah chat WhatsApp yang sudah sangat populer, siapa pun dapat dengan mudah berinteraksi dengan Emilia AI tanpa perlu mempelajari aplikasi baru yang rumit.</li>
+                        <li style="margin-bottom: 15px;">Perintah-perintah bot dibuat intuitif dan mudah diingat, memudahkan navigasi fitur.</li>
+
+                        <li><strong>Teknologi AI Terdepan:</strong> Emilia AI tidak hanya mengandalkan perintah sederhana, tetapi juga memanfaatkan model-model AI canggih untuk chat (memberikan percakapan yang lebih natural dan informatif) dan generasi gambar (menciptakan karya visual dari deskripsi teks).</li>
+                        <li>Ini membuka peluang baru untuk kreativitas dan interaksi yang lebih mendalam dengan teknologi.</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-         <div class="expandable-item">
-            <div class="item-header" onclick="toggleContent(this)">
-                <h2 class="item-title">Keunggulan Menggunakan Bot WhatsApp Emilia AI</h2>
-                <span class="arrow">▼</span>
+            <div class="expandable-item">
+                <div class="item-header" onclick="toggleContent(this)">
+                    <h2 class="item-title">Gratis vs Berbayar: Tingkatkan Pengalaman Anda</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="item-content">
+                    <p>Bot WhatsApp kami adalah asisten pintar berbasis kecerdasan buatan yang terintegrasi langsung di dalam aplikasi WhatsApp Anda. Ini bukan sekadar kontak biasa; ia adalah tool multifungsi yang siap membantu berbagai kebutuhan digital Anda, 24/7, langsung melalui chat.</p>
+                </div>
             </div>
-            <div class="item-content">
-                <p>Memilih Emilia AI sebagai asisten digital Anda di WhatsApp memberikan berbagai manfaat signifikan:</p>
-                <ul>
-                    <li><strong>Kemudahan Akses:</strong> Anda tidak perlu mengunduh aplikasi tambahan yang memberatkan perangkat Anda. Cukup gunakan aplikasi WhatsApp yang sudah terpasang, dan Emilia AI siap membantu.</li>
-                    <li style="margin-bottom: 15px;">Interaksi dilakukan sepenuhnya melalui chat, membuat penggunaan terasa alami dan familiar seperti berkomunikasi dengan teman.</li>
 
-                    <li><strong>Respon Cepat & Efisien:</strong> Emilia AI memproses permintaan Anda dalam hitungan detik. Dapatkan jawaban atas pertanyaan atau selesaikan tugas-tugassertentu secara instan tanpa perlu menunggu balasan manual.</li>
-                     <li style="margin-bottom: 15px;">Bot ini beroperasi tanpa henti (24/7), memastikan layanan selalu tersedia kapan pun Anda membutuhkannya, siang atau malam.</li>
-
-                    <li><strong>Multifungsi dalam Satu Genggaman:</strong> Emilia AI dirancang untuk menjadi asisten serba bisa. Mulai dari mengunduh konten dari berbagai platform, mengolah media (gambar, stiker, audio, video), hingga berinteraksi dengan AI generatif, semua bisa dilakukan di satu tempat.</li>
-                    <li style="margin-bottom: 15px;">Koleksi fiturnya terus bertambah, menjadikannya tools yang semakin lengkap dari waktu ke waktu untuk berbagai keperluan digital Anda.</li>
-
-                    <li><strong>Hemat Waktu & Tenaga:</strong> Otomatisasi tugas-tugas repetitif seperti mengunduh konten, konversi format, atau mencari informasi tertentu secara signifikan mengurangi waktu dan tenaga yang harus Anda keluarkan.</li>
-                    <li style="margin-bottom: 15px;">Anda bisa fokus pada hal lain yang lebih penting sementara Emilia AI menangani tugas-tugas teknis tersebut untuk Anda.</li>
-
-                     <li><strong>User-Friendly:</strong> Mengingat antarmuka dasarnya adalah chat WhatsApp yang sudah sangat populer, siapa pun dapat dengan mudah berinteraksi dengan Emilia AI tanpa perlu mempelajari aplikasi baru yang rumit.</li>
-                     <li style="margin-bottom: 15px;">Perintah-perintah bot dibuat intuitif dan mudah diingat, memudahkan navigasi fitur.</li>
-
-                      <li><strong>Teknologi AI Terdepan:</strong> Emilia AI tidak hanya mengandalkan perintah sederhana, tetapi juga memanfaatkan model-model AI canggih untuk chat (memberikan percakapan yang lebih natural dan informatif) dan generasi gambar (menciptakan karya visual dari deskripsi teks).</li>
-                      <li>Ini membuka peluang baru untuk kreativitas dan interaksi yang lebih mendalam dengan teknologi.</li>
-                </ul>
-            </div>
-        </div>
-
-         <div class="expandable-item">
-            <div class="item-header" onclick="toggleContent(this)">
-                <h2 class="item-title">Gratis vs Berbayar: Tingkatkan Pengalaman Anda</h2>
-                <span class="arrow">▼</span>
-            </div>
-            <div class="item-content">
-            <p>Bot WhatsApp kami adalah asisten pintar berbasis kecerdasan buatan yang terintegrasi langsung di dalam aplikasi WhatsApp Anda. Ini bukan sekadar kontak biasa; ia adalah tool multifungsi yang siap membantu berbagai kebutuhan digital Anda, 24/7, langsung melalui chat.</p>
-        </div>
-        </div>
-
-        <!-- New Accordion Item: Plan Lite Benefits -->
-        <div class="expandable-item">
-             <div class="item-header" onclick="toggleContent(this)">
-                 <h2 class="item-title">Keunggulan Plan Lite</h2>
-                 <span class="arrow">▼</span>
-             </div>
-             <div class="item-content">
-                 <p>Plan Lite dirancang untuk pengguna yang membutuhkan akses lebih dari versi gratis, dengan fokus pada fitur inti dan dukungan yang ditingkatkan:</p>
-                 <ul>
-                      <li><strong>Chatbot Tanpa Batas</strong>
-                          <p>Anda bisa berinteraksi dengan model AI chat kami sebanyak yang Anda inginkan tanpa ada kuota harian.</p>
-                      </li>
-                      <li><strong>Memori AI Cukup Baik</strong>
-                          <p>AI dapat mengingat konteks percakapan Anda dalam sesi yang sama, memungkinkan interaksi yang lebih mengalir.</p>
-                      </li>
-                       <li><strong>Respon Cepat</strong>
-                           <p>Permintaan Anda diproses dengan cepat untuk pengalaman yang mulus.</p>
-                       </li>
-                       <li><strong>Akses Fitur Terkunci</strong>
-                           <p>Dapatkan akses ke beberapa fitur premium yang tidak tersedia untuk pengguna gratis.</p>
-                       </li>
+            <!-- New Accordion Item: Plan Lite Benefits -->
+            <div class="expandable-item">
+                <div class="item-header" onclick="toggleContent(this)">
+                    <h2 class="item-title">Keunggulan Plan Lite</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="item-content">
+                    <p>Plan Lite dirancang untuk pengguna yang membutuhkan akses lebih dari versi gratis, dengan fokus pada fitur inti dan dukungan yang ditingkatkan:</p>
+                    <ul>
+                        <li><strong>Chatbot Tanpa Batas</strong>
+                            <p>Anda bisa berinteraksi dengan model AI chat kami sebanyak yang Anda inginkan tanpa ada kuota harian.</p>
+                        </li>
+                        <li><strong>Memori AI Cukup Baik</strong>
+                            <p>AI dapat mengingat konteks percakapan Anda dalam sesi yang sama, memungkinkan interaksi yang lebih mengalir.</p>
+                        </li>
+                        <li><strong>Respon Cepat</strong>
+                            <p>Permintaan Anda diproses dengan cepat untuk pengalaman yang mulus.</p>
+                        </li>
+                        <li><strong>Akses Fitur Terkunci</strong>
+                            <p>Dapatkan akses ke beberapa fitur premium yang tidak tersedia untuk pengguna gratis.</p>
+                        </li>
                         <li><strong>Konsultasi</strong>
                             <p>Anda bisa bertanya atau berkonsultasi mengenai penggunaan bot atau fitur-fitur yang ada.</p>
                         </li>
@@ -439,52 +493,52 @@
                         <li><strong>Notifikasi Update</strong>
                             <p>Selalu tahu tentang fitur baru atau perubahan penting melalui notifikasi khusus.</p>
                         </li>
-                         <li><strong>Fitur Dasar</strong>
-                             <p>Seluruh fungsi dasar bot tetap bisa diakses dan digunakan.</p>
-                         </li>
-                       <li style="text-decoration: line-through;"><strong>Auto Klaim Harian</strong>
-                           <p>Fitur klaim hadiah harian otomatis tidak tersedia di plan ini.</p>
-                       </li>
-                       <li style="text-decoration: line-through;"><strong>Integrasi dengan group lain</strong>
+                        <li><strong>Fitur Dasar</strong>
+                            <p>Seluruh fungsi dasar bot tetap bisa diakses dan digunakan.</p>
+                        </li>
+                        <li style="text-decoration: line-through;"><strong>Auto Klaim Harian</strong>
+                            <p>Fitur klaim hadiah harian otomatis tidak tersedia di plan ini.</p>
+                        </li>
+                        <li style="text-decoration: line-through;"><strong>Integrasi dengan group lain</strong>
                             <p>Fitur untuk mengintegrasikan atau menggunakan bot di grup WhatsApp lain tidak termasuk.</p>
-                       </li>
-                       <li style="text-decoration: line-through;"><strong>Sewa Bot</strong>
-                           <p>Opsi untuk menyewa instance bot khusus tidak tersedia di plan ini.</p>
-                       </li>
-                       <li style="text-decoration: line-through;"><strong>Prioritas Dukungan 24/7</strong>
+                        </li>
+                        <li style="text-decoration: line-through;"><strong>Sewa Bot</strong>
+                            <p>Opsi untuk menyewa instance bot khusus tidak tersedia di plan ini.</p>
+                        </li>
+                        <li style="text-decoration: line-through;"><strong>Prioritas Dukungan 24/7</strong>
                             <p>Dukungan prioritas hanya tersedia selama jam kerja, bukan 24 jam penuh.</p>
-                       </li>
-                       <li style="text-decoration: line-through;"><strong>Konsultasi Pribadi</strong>
+                        </li>
+                        <li style="text-decoration: line-through;"><strong>Konsultasi Pribadi</strong>
                             <p>Sesi konsultasi yang lebih mendalam atau pribadi tidak termasuk.</p>
-                       </li>
-                       <li style="text-decoration: line-through;"><strong>Request Fitur</strong>
-                           <p>Anda tidak memiliki hak prioritas untuk mengajukan permintaan fitur baru.</p>
-                       </li>
-                  </ul>
-             </div>
-        </div>
+                        </li>
+                        <li style="text-decoration: line-through;"><strong>Request Fitur</strong>
+                            <p>Anda tidak memiliki hak prioritas untuk mengajukan permintaan fitur baru.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-         <!-- New Accordion Item: Plan Pro Benefits -->
-        <div class="expandable-item">
-             <div class="item-header" onclick="toggleContent(this)">
-                 <h2 class="item-title">Keunggulan Plan Pro</h2>
-                 <span class="arrow">▼</span>
-             </div>
-             <div class="item-content">
-                 <p>Plan Pro adalah paket terlengkap untuk pengalaman Emilia AI tanpa kompromi, mencakup semua fitur Lite ditambah akses eksklusif dan prioritas tertinggi:</p>
-                 <ul>
-                      <li><strong>Chatbot Tanpa Batas</strong>
-                           <p>Nikmati interaksi AI chat tanpa batasan penggunaan kuota harian.</p>
-                      </li>
-                      <li><strong>Memori AI Lebih Baik</strong>
-                           <p>Model AI memiliki memori jangka panjang yang lebih baik, memungkinkan percakapan yang lebih kompleks dan berkelanjutan.</p>
-                      </li>
-                       <li><strong>Respon Cepat</strong>
-                           <p>Permintaan Anda diproses dengan sangat cepat untuk efisiensi maksimum.</p>
-                       </li>
-                       <li><strong>Akses Fitur Terkunci</strong>
-                           <p>Akses penuh ke semua fitur premium dan lanjutan yang disediakan bot.</p>
-                       </li>
+            <!-- New Accordion Item: Plan Pro Benefits -->
+            <div class="expandable-item">
+                <div class="item-header" onclick="toggleContent(this)">
+                    <h2 class="item-title">Keunggulan Plan Pro</h2>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="item-content">
+                    <p>Plan Pro adalah paket terlengkap untuk pengalaman Emilia AI tanpa kompromi, mencakup semua fitur Lite ditambah akses eksklusif dan prioritas tertinggi:</p>
+                    <ul>
+                        <li><strong>Chatbot Tanpa Batas</strong>
+                            <p>Nikmati interaksi AI chat tanpa batasan penggunaan kuota harian.</p>
+                        </li>
+                        <li><strong>Memori AI Lebih Baik</strong>
+                            <p>Model AI memiliki memori jangka panjang yang lebih baik, memungkinkan percakapan yang lebih kompleks dan berkelanjutan.</p>
+                        </li>
+                        <li><strong>Respon Cepat</strong>
+                            <p>Permintaan Anda diproses dengan sangat cepat untuk efisiensi maksimum.</p>
+                        </li>
+                        <li><strong>Akses Fitur Terkunci</strong>
+                            <p>Akses penuh ke semua fitur premium dan lanjutan yang disediakan bot.</p>
+                        </li>
                         <li><strong>Konsultasi</strong>
                             <p>Anda bisa bertanya atau berkonsultasi mengenai penggunaan bot atau fitur-fitur yang ada.</p>
                         </li>
@@ -503,47 +557,47 @@
                         <li><strong>Notifikasi Update</strong>
                             <p>Selalu tahu tentang fitur baru atau perubahan penting melalui notifikasi khusus.</p>
                         </li>
-                         <li><strong>Fitur Lanjutan</strong>
-                             <p>Akses ke tools dan fungsi bot yang lebih canggih dan kompleks.</p>
-                         </li>
-                         <li><strong>Integrasi dengan group Lain</strong>
-                              <p>Fitur untuk mengintegrasikan bot ke beberapa grup WhatsApp Anda (tergantung syarat dan ketentuan).</p>
-                         </li>
-                         <li><strong>Sewa Bot</strong>
-                             <p>Opsi untuk menyewa instance bot khusus untuk kebutuhan spesifik Anda (tergantung ketersediaan dan syarat tambahan).</p>
-                         </li>
-                         <li><strong>Prioritas Dukungan</strong>
-                             <p>Anda mendapatkan prioritas utama dalam antrean dukungan teknis.</p>
-                         </li>
-                         <li><strong>Konsultasi Pribadi</strong>
-                              <p>Dapatkan sesi konsultasi yang lebih mendalam dan personal untuk kebutuhan Anda.</p>
-                         </li>
-                         <li><strong>Request Fitur</strong>
-                             <p>Sebagai anggota Pro, permintaan fitur baru dari Anda akan mendapatkan pertimbangan dan prioritas khusus dalam pengembangan.</p>
-                         </li>
-                         <li><strong>Akses ke Event Eksklusif</strong>
-                             <p>Anda diundang dan memiliki akses ke acara, promosi, atau beta test fitur baru yang hanya tersedia untuk anggota Pro.</p>
-                         </li>
-                          <li><strong>Akses ke Konten Eksklusif</strong>
-                             <p>Nikmati akses ke lebih banyak konten, materi, atau tools eksklusif dibandingkan plan Lite.</p>
-                         </li>
-                 </ul>
-                  <p style="font-weight: bold; margin-top: 20px; margin-bottom: 5px; border-left: none;">Detail Event Plan Pro:</p>
-                  <ul style="margin-top: 0;">
-                      <li><strong>SALDO BOT HARIAN: Rp. 100.000,00</strong>
-                           <p>Anda mendapatkan Rp. 100.000,00 setiap hari untuk menggunakan fitur-fitur tertentu yang membutuhkan energy, jumlah yang jauh lebih besar dari Plan Lite. (INI HANYA MATA UANG BOT, BUKAN ASLI)</p>
-                      </li>
+                        <li><strong>Fitur Lanjutan</strong>
+                            <p>Akses ke tools dan fungsi bot yang lebih canggih dan kompleks.</p>
+                        </li>
+                        <li><strong>Integrasi dengan group Lain</strong>
+                            <p>Fitur untuk mengintegrasikan bot ke beberapa grup WhatsApp Anda (tergantung syarat dan ketentuan).</p>
+                        </li>
+                        <li><strong>Sewa Bot</strong>
+                            <p>Opsi untuk menyewa instance bot khusus untuk kebutuhan spesifik Anda (tergantung ketersediaan dan syarat tambahan).</p>
+                        </li>
+                        <li><strong>Prioritas Dukungan</strong>
+                            <p>Anda mendapatkan prioritas utama dalam antrean dukungan teknis.</p>
+                        </li>
+                        <li><strong>Konsultasi Pribadi</strong>
+                            <p>Dapatkan sesi konsultasi yang lebih mendalam dan personal untuk kebutuhan Anda.</p>
+                        </li>
+                        <li><strong>Request Fitur</strong>
+                            <p>Sebagai anggota Pro, permintaan fitur baru dari Anda akan mendapatkan pertimbangan dan prioritas khusus dalam pengembangan.</p>
+                        </li>
+                        <li><strong>Akses ke Event Eksklusif</strong>
+                            <p>Anda diundang dan memiliki akses ke acara, promosi, atau beta test fitur baru yang hanya tersedia untuk anggota Pro.</p>
+                        </li>
+                        <li><strong>Akses ke Konten Eksklusif</strong>
+                            <p>Nikmati akses ke lebih banyak konten, materi, atau tools eksklusif dibandingkan plan Lite.</p>
+                        </li>
+                    </ul>
+                    <p style="font-weight: bold; margin-top: 20px; margin-bottom: 5px; border-left: none;">Detail Event Plan Pro:</p>
+                    <ul style="margin-top: 0;">
+                        <li><strong>SALDO BOT HARIAN: Rp. 100.000,00</strong>
+                            <p>Anda mendapatkan Rp. 100.000,00 setiap hari untuk menggunakan fitur-fitur tertentu yang membutuhkan energy, jumlah yang jauh lebih besar dari Plan Lite. (INI HANYA MATA UANG BOT, BUKAN ASLI)</p>
+                        </li>
                         <li><strong>AKSES KE EVENT EKSLUSIF</strong>
-                           <p>Undangan dan akses khusus ke acara, promosi, atau kegiatan terbatas yang hanya diadakan untuk anggota Plan Pro.</p>
-                       </li>
-                  </ul>
-             </div>
+                            <p>Undangan dan akses khusus ke acara, promosi, atau kegiatan terbatas yang hanya diadakan untuk anggota Plan Pro.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- End New Accordion Section -->
+        <!-- End New Accordion Section -->
 
 
-    <div class="expandable-section scroll-reveal">
+        <div class="expandable-section scroll-reveal">
             <div class="expandable-item">
                 <div class="item-header" onclick="toggleContent(this)">
                     <h2 class="item-title">🛠️ Lebih dari 400 Tools</h2>
@@ -602,20 +656,18 @@
             </div>
         </div>
 
+        <!-- Modern Membership Callout -->
         <div class="membership-callout scroll-reveal">
-            <h2>✨ Upgrade Pengalaman Anda</h2>
-            <p>Meskipun gratis, versi premium memberikan:</p>
-            <ul style="font-size: 2em ; text-align: left; display: inline-block; margin: 10px 0;">
+            <h2>✨ Tingkatkan Pengalaman Anda</h2>
+            <p>Buka potensi penuh Emilia AI dengan fitur premium! Dapatkan akses prioritas, fitur eksklusif, dan banyak lagi.</p>
+            <ul>
                 <li>🚀 Akses Prioritas</li>
                 <li>🛡️ Fitur Eksklusif</li>
                 <li>🎁 Bonus Harian</li>
                 <li>💬 Bebas Filter</li>
                 <li>🗣️ Lebih Banyak Model</li>
             </ul>
-            <div></div>
-            <button class="modern-btn2" onclick="location.href='shop.html'">
-                Lihat Paket Premium
-            </button>
+            <button class="modern-btn2" onclick="location.href='shop.html'">Lihat Paket Premium</button>
         </div>
     </div>
 
@@ -647,8 +699,10 @@
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if(entry.isIntersecting) {
+                if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active'); // Tambahkan ini untuk fade out
                 }
             });
         }, { threshold: 0.1 });
